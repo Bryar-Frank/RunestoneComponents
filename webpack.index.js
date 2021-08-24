@@ -59,12 +59,14 @@ const module_map = {
     //
     // The keys must match the value of each component's ``data-component`` attribute -- the ``runestone_import`` and ``runestone_auto_import`` functions assume this.
     activecode: () => import("./runestone/activecode/js/acfactory.js"),
+    ble: () => import("./runestone/cellbotics/js/ble.js"),
     // Always import the timed version of a component if available, since the timed components also define the component's factory and include the component as well. Note that ``acfactory`` imports the timed components of ActiveCode, so it follows this pattern.
     clickablearea: () => import("./runestone/clickableArea/js/timedclickable.js"),
     codelens: () => import("./runestone/codelens/js/codelens.js"),
     datafile: () => import("./runestone/datafile/js/datafile.js"),
     dragndrop: () => import("./runestone/dragndrop/js/timeddnd.js"),
     fillintheblank: () => import("./runestone/fitb/js/timedfitb.js"),
+    groupsub: () => import("./runestone/groupsub/js/groupsub.js"),
     khanex: () => import("./runestone/khanex/js/khanex.js"),
     lp_build: () => import("./runestone/lp/js/lp.js"),
     multiplechoice: () => import("./runestone/mchoice/js/timedmc.js"),
@@ -75,6 +77,7 @@ const module_map = {
     selectquestion: () => import("./runestone/selectquestion/js/selectone.js"),
     shortanswer: () => import("./runestone/shortanswer/js/timed_shortanswer.js"),
     showeval: () => import("./runestone/showeval/js/showEval.js"),
+    simple_sensor: () => import("./runestone/cellbotics/js/simple_sensor.js"),
     spreadsheet: () => import("./runestone/spreadsheet/js/spreadsheet.js"),
     tabbedStuff: () => import("./runestone/tabbedStuff/js/tabbedstuff.js"),
     timedAssessment: () => import("./runestone/timed/js/timed.js"),
@@ -90,7 +93,7 @@ const module_map = {
 // ========================
 // Fulfill a promise when the Runestone pre-login complete event occurs.
 let pre_login_complete_promise = new Promise(resolve => $(document).bind("runestone:pre-login-complete", resolve));
-
+let loadedComponents;
 // Provide a simple function to import the JS for all components on the page.
 export function runestone_auto_import() {
     // Create a set of ``data-component`` values, to avoid duplication.
